@@ -4,6 +4,8 @@
  */
 package clase;
 
+import clase.AlumnoController;
+import clase.LibroModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,9 +20,9 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = {"/NewServlet"})
 public class LibroControl extends HttpServlet {
-ClienteModel cliente;
+LibroModel cliente;
  AlumnoController registroAlumno;
-    ClienteModel [] alumnosRegistrados;
+    LibroModel [] alumnosRegistrados;
     
     
     
@@ -30,13 +32,12 @@ ClienteModel cliente;
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter respuesta = response.getWriter()) {
-           cliente=new ClienteModel (
+           cliente=new LibroModel (
                 request.getParameter("codigo"),
                 request.getParameter("nombre"),
-                request.getParameter("correo"),
-                request.getParameter("direccion"),
-                request.getParameter("apellido"),   
-                     request.getParameter("contraseña")   
+                request.getParameter("año"),
+                request.getParameter("tipodpasta"),
+                request.getParameter("editorial")     
             );               
             
             if(registroAlumno==null){
@@ -54,24 +55,22 @@ ClienteModel cliente;
             respuesta.println("</head>");
             respuesta.println("<body>");           
             respuesta.println("<div class='container'>");
-             respuesta.println("<br><h1>Gracias por registrarse </h1><br>");  
+             respuesta.println("<br><h1>Libro Registrado </h1><br>");  
             respuesta.println("<form name='nombreForm'>");
             respuesta.println("<div class='container-lg d-flex'> <a href='index.html' class=\"btn btn-success ml-auto\">Registrar Nuevo</a></div><br>");
-                respuesta.println("<div class='container-lg d-flex'> <a href='newhtml.html' class=\"btn btn-success ml-auto\">Registrar EMPLEADO</a></div><br>");
+                respuesta.println("<div class='container-lg d-flex'> <a href='newhtml.html' class=\"btn btn-success ml-auto\">Registrar LIBRO</a></div><br>");
             respuesta.println("<table class=\"table table-hover table-striped\">");   
-            respuesta.println("<thead><tr> <th scope=\"col\">CODIGO CLIENTE</th>\n"+ "<th scope=\"col\">NOMBRE DEL CLIENTE</th>\n"+
-                                "<th scope=\"col\"> CORREO DEL CLIENTE </th>\n" + "<th scope=\"col\">DIRECCION</th>\n" +
-                                "<th scope=\"col\"> Apellido Del Cliente </th> \n" +
-                             "   <th scope=\"col\"> Contraseña Del Cliente </th> </tr></thead>");  
+            respuesta.println("<thead><tr> <th scope=\"col\">CODIGO LIBRO</th>\n"+ "<th scope=\"col\">NOMBRE DEL LIBRO</th>\n"+
+                                "<th scope=\"col\"> TIPO DE PASTA </th>\n" + "<th scope=\"col\">AÑO DE PUBLICACION</th>\n" +
+                             "   <th scope=\"col\"> EDITORIAL </th> </tr></thead>");  
             respuesta.println("<tbody>");
             for (int i = 0; i < alumnosRegistrados.length; i++){
                     if(!alumnosRegistrados[i].getCodigo().isEmpty()){
                        respuesta.println("<tr><td>" + alumnosRegistrados[i].getCodigo()+ "</td>");
                        respuesta.println("<td>" + alumnosRegistrados[i].getNombre() + "</td>");
-                       respuesta.println("<td>" + alumnosRegistrados[i].getCorreo()+ "</td>");
-                       respuesta.println("<td>" + alumnosRegistrados[i].getDireccion()+ "</td>");
-                          respuesta.println("<td>" + alumnosRegistrados[i].getApellido()+ "</td>");
-                              respuesta.println("<td>" + alumnosRegistrados[i].getContraseña()+ "</td>");
+                       respuesta.println("<td>" + alumnosRegistrados[i].getTipodpasta()+ "</td>");
+                       respuesta.println("<td>" + alumnosRegistrados[i].getAño()+ "</td>");
+                          respuesta.println("<td>" + alumnosRegistrados[i].getEditorial()+ "</td>");
                     }
                 }
             respuesta.println("</tbody></table>");

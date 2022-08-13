@@ -13,16 +13,16 @@ public class AlumnoController {
     int indiceArray;
     
     public AlumnoController(){
-        this.tablaALumno = new  LibroModel[100];
+        this.tablaAlumno = new  LibroModel[100];
         this.indiceArray=0;
     }
     
      public void guardarAlumno( LibroModel cliente){
-        this.tablaALumno[this.indiceArray]=cliente;  
+        this.tablaAlumno[this.indiceArray]=cliente;  
         this.indiceArray=this.indiceArray+1;
     }
     
     public  LibroModel[] getAlumnos(){
-        return this.tablaALumno;
+        return this.tablaAlumno;
     }
 }
